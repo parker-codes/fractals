@@ -1,9 +1,29 @@
 import './style.css';
 
+const MAX_LEVELS = 5;
+
 window.addEventListener('load', run);
 
 const sizeInput =
   document.querySelector<HTMLInputElement>('input[name="size"]')!;
+const sidesInput = document.querySelector<HTMLInputElement>(
+  'input[name="sides"]'
+)!;
+const levelsInput = document.querySelector<HTMLInputElement>(
+  'input[name="levels"]'
+)!;
+const scaleInput = document.querySelector<HTMLInputElement>(
+  'input[name="scale"]'
+)!;
+const spreadInput = document.querySelector<HTMLInputElement>(
+  'input[name="spread"]'
+)!;
+const branchesInput = document.querySelector<HTMLInputElement>(
+  'input[name="branches"]'
+)!;
+const branchWidthInput = document.querySelector<HTMLInputElement>(
+  'input[name="branch-width"]'
+)!;
 const colorInput = document.querySelector<HTMLInputElement>(
   'input[name="color"]'
 )!;
@@ -18,19 +38,19 @@ function run(): void {
   canvas.height = window.innerHeight;
 
   // config
-  let size = sizeInput.value;
-  let sides = 5;
-  let maxLevel = 3;
-  let scale = 0.5;
-  let spread = 0.8;
-  let branches = 2;
+  let size = Number(sizeInput.value) ?? 0;
+  let sides = Number(sidesInput.value) ?? 0;
+  let levels = Number(levelsInput.value) ?? 0;
+  let scale = Number(scaleInput.value) ?? 0;
+  let spread = Number(spreadInput.value) ?? 0;
+  let branches = Number(branchesInput.value) ?? 0;
 
-  ctx.strokeStyle = colorInput.value;
-  ctx.lineWidth = 30;
+  ctx.strokeStyle = colorInput.value ?? 'white';
+  ctx.lineWidth = Number(branchWidthInput.value) ?? 0;
   ctx.lineCap = 'round';
 
   function drawBranch(level: number): void {
-    if (level > maxLevel) return;
+    if (level > Math.min(levels, MAX_LEVELS)) return;
 
     ctx.beginPath();
     ctx.moveTo(0, 0);
