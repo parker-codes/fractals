@@ -9,3 +9,14 @@
   inset: 0;
   background-color: black;
 }
+
+#controls {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+
+  color: white;
+}
+#controls input {
+  background-color: black;
+}

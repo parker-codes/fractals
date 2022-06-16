@@ -2,7 +2,14 @@ import './style.css';
 
 window.addEventListener('load', run);
 
-console.log('script running');
+const sizeInput =
+  document.querySelector<HTMLInputElement>('input[name="size"]')!;
+const colorInput = document.querySelector<HTMLInputElement>(
+  'input[name="color"]'
+)!;
+
+sizeInput.addEventListener('input', run);
+colorInput.addEventListener('input', run);
 
 function run(): void {
   const canvas = document.querySelector<HTMLCanvasElement>('#canvas')!;
@@ -11,14 +18,14 @@ function run(): void {
   canvas.height = window.innerHeight;
 
   // config
-  let size = 200;
+  let size = sizeInput.value;
   let sides = 5;
   let maxLevel = 3;
   let scale = 0.5;
   let spread = 0.8;
   let branches = 2;
 
-  ctx.strokeStyle = '#6D28D9';
+  ctx.strokeStyle = colorInput.value;
   ctx.lineWidth = 30;
   ctx.lineCap = 'round';
 
