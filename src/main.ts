@@ -12,14 +12,14 @@ const sidesInput = document.querySelector<HTMLInputElement>(
 const levelsInput = document.querySelector<HTMLInputElement>(
   'input[name="levels"]'
 )!;
+const offshootsInput = document.querySelector<HTMLInputElement>(
+  'input[name="offshoots"]'
+)!;
 const scaleInput = document.querySelector<HTMLInputElement>(
   'input[name="scale"]'
 )!;
 const angleInput = document.querySelector<HTMLInputElement>(
   'input[name="angle"]'
-)!;
-const branchesInput = document.querySelector<HTMLInputElement>(
-  'input[name="branches"]'
 )!;
 const branchWidthInput = document.querySelector<HTMLInputElement>(
   'input[name="branch-width"]'
@@ -31,10 +31,10 @@ const colorInput = document.querySelector<HTMLInputElement>(
 [
   sizeInput,
   sidesInput,
+  offshootsInput,
   levelsInput,
   scaleInput,
   angleInput,
-  branchesInput,
   branchWidthInput,
   colorInput,
 ].forEach((input) => input.addEventListener('input', run));
@@ -48,10 +48,10 @@ function run(): void {
   // config
   let size = Number(sizeInput.value) ?? 0;
   let sides = Number(sidesInput.value) ?? 0;
+  let offshoots = Number(offshootsInput.value) ?? 0;
   let levels = Number(levelsInput.value) ?? 0;
   let scale = Number(scaleInput.value) ?? 0;
   let angle = Number(angleInput.value) ?? 0;
-  let branches = Number(branchesInput.value) ?? 0;
 
   ctx.strokeStyle = colorInput.value ?? 'white';
   ctx.lineWidth = Number(branchWidthInput.value) ?? 0;
@@ -65,8 +65,8 @@ function run(): void {
     ctx.lineTo(size, 0);
     ctx.stroke();
 
-    for (let i = 0; i < branches; i += 1) {
-      const translate = size - (size / branches) * i;
+    for (let i = 0; i < offshoots; i += 1) {
+      const translate = size - (size / offshoots) * i;
 
       ctx.save();
       ctx.translate(translate, 0);
