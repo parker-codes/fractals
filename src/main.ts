@@ -6,8 +6,8 @@ window.addEventListener('load', run);
 
 const sizeInput =
   document.querySelector<HTMLInputElement>('input[name="size"]')!;
-const sidesInput = document.querySelector<HTMLInputElement>(
-  'input[name="sides"]'
+const branchesInput = document.querySelector<HTMLInputElement>(
+  'input[name="branches"]'
 )!;
 const levelsInput = document.querySelector<HTMLInputElement>(
   'input[name="levels"]'
@@ -30,7 +30,7 @@ const colorInput = document.querySelector<HTMLInputElement>(
 
 [
   sizeInput,
-  sidesInput,
+  branchesInput,
   offshootsInput,
   levelsInput,
   scaleInput,
@@ -47,7 +47,7 @@ function run(): void {
 
   // config
   let size = Number(sizeInput.value) ?? 0;
-  let sides = Number(sidesInput.value) ?? 0;
+  let branches = Number(branchesInput.value) ?? 0;
   let offshoots = Number(offshootsInput.value) ?? 0;
   let levels = Number(levelsInput.value) ?? 0;
   let scale = Number(scaleInput.value) ?? 0;
@@ -90,8 +90,8 @@ function run(): void {
     ctx.scale(1, 1);
     ctx.rotate(0);
 
-    for (let i = 0; i < sides; i += 1) {
-      ctx.rotate((Math.PI * 2) / sides);
+    for (let i = 0; i < branches; i += 1) {
+      ctx.rotate((Math.PI * 2) / branches);
       drawBranch(0);
     }
 
