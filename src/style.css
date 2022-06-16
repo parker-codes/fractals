@@ -4,6 +4,10 @@
   box-sizing: border-box;
 }
 
+body {
+  font-family: 'Recursive', sans-serif;
+}
+
 #canvas {
   position: absolute;
   inset: 0;
