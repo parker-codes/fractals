@@ -15,8 +15,8 @@ const levelsInput = document.querySelector<HTMLInputElement>(
 const scaleInput = document.querySelector<HTMLInputElement>(
   'input[name="scale"]'
 )!;
-const spreadInput = document.querySelector<HTMLInputElement>(
-  'input[name="spread"]'
+const angleInput = document.querySelector<HTMLInputElement>(
+  'input[name="angle"]'
 )!;
 const branchesInput = document.querySelector<HTMLInputElement>(
   'input[name="branches"]'
@@ -33,7 +33,7 @@ const colorInput = document.querySelector<HTMLInputElement>(
   sidesInput,
   levelsInput,
   scaleInput,
-  spreadInput,
+  angleInput,
   branchesInput,
   branchWidthInput,
   colorInput,
@@ -50,7 +50,7 @@ function run(): void {
   let sides = Number(sidesInput.value) ?? 0;
   let levels = Number(levelsInput.value) ?? 0;
   let scale = Number(scaleInput.value) ?? 0;
-  let spread = Number(spreadInput.value) ?? 0;
+  let angle = Number(angleInput.value) ?? 0;
   let branches = Number(branchesInput.value) ?? 0;
 
   ctx.strokeStyle = colorInput.value ?? 'white';
@@ -70,14 +70,14 @@ function run(): void {
 
       ctx.save();
       ctx.translate(translate, 0);
-      ctx.rotate(spread);
+      ctx.rotate(angle);
       ctx.scale(scale, scale);
       drawBranch(level + 1);
       ctx.restore();
 
       ctx.save();
       ctx.translate(translate, 0);
-      ctx.rotate(-spread);
+      ctx.rotate(-angle);
       ctx.scale(scale, scale);
       drawBranch(level + 1);
       ctx.restore();
