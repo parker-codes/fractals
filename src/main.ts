@@ -28,8 +28,16 @@ const colorInput = document.querySelector<HTMLInputElement>(
   'input[name="color"]'
 )!;
 
-sizeInput.addEventListener('input', run);
-colorInput.addEventListener('input', run);
+[
+  sizeInput,
+  sidesInput,
+  levelsInput,
+  scaleInput,
+  spreadInput,
+  branchesInput,
+  branchWidthInput,
+  colorInput,
+].forEach((input) => input.addEventListener('input', run));
 
 function run(): void {
   const canvas = document.querySelector<HTMLCanvasElement>('#canvas')!;
