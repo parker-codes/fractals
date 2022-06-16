@@ -68,3 +68,14 @@ body {
 #controls #attribution .heart {
   color: #dc2626;
 }
+
+/* Controls toggle */
+button#controls-toggle {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  z-index: 10;
+}
+button#controls-toggle[aria-expanded='true'] {
+  visibility: hidden;
+}

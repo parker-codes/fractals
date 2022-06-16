@@ -1,8 +1,23 @@
 import './style.css';
 
-const MAX_LEVELS = 5;
-
 window.addEventListener('load', run);
+
+/**
+ * Controls toggle
+ */
+
+const controlsToggle = document.querySelector<HTMLButtonElement>(
+  'button#controls-toggle'
+)!;
+
+controlsToggle.addEventListener('click', () => {
+  const expanded = controlsToggle.getAttribute('aria-expanded') === 'true';
+  controlsToggle.setAttribute('aria-expanded', String(!expanded));
+});
+
+/**
+ * Controls inputs
+ */
 
 const sizeInput =
   document.querySelector<HTMLInputElement>('input[name="size"]')!;
@@ -38,6 +53,12 @@ const colorInput = document.querySelector<HTMLInputElement>(
   branchWidthInput,
   colorInput,
 ].forEach((input) => input.addEventListener('input', run));
+
+/**
+ * Main logic
+ */
+
+const MAX_LEVELS = 5;
 
 function run(): void {
   const canvas = document.querySelector<HTMLCanvasElement>('#canvas')!;
