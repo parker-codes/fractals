@@ -45,7 +45,7 @@ body {
   margin-top: 0.4rem;
 }
 #controls input {
-  width: 4rem;
+  width: 8rem;
   margin-left: 0.5rem;
   padding: 0.2rem;
 
@@ -53,7 +53,7 @@ body {
   background-color: black;
 }
 #controls #attribution {
-  margin-top: 1rem;
+  margin-top: 1.4rem;
   text-align: center;
 }
 #controls #attribution a {
