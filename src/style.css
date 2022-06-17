@@ -70,12 +70,26 @@ body {
 }
 
 /* Controls toggle */
-button#controls-toggle {
+button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+button#controls-show {
   position: absolute;
   bottom: 1rem;
   right: 1rem;
   z-index: 10;
 }
-button#controls-toggle[aria-expanded='true'] {
+button#controls-hide {
+  position: absolute;
+  top: 0.25rem;
+  left: 0.25rem;
+}
+button#controls-show[aria-expanded='true'] {
+  visibility: hidden;
+}
+button#controls-show[aria-expanded='false'] + #controls {
+  background-color: red;
   visibility: hidden;
 }

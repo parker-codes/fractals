@@ -6,13 +6,20 @@ window.addEventListener('load', run);
  * Controls toggle
  */
 
-const controlsToggle = document.querySelector<HTMLButtonElement>(
-  'button#controls-toggle'
+const controlsShow = document.querySelector<HTMLButtonElement>(
+  'button#controls-show'
+)!;
+const controlsHide = document.querySelector<HTMLButtonElement>(
+  'button#controls-hide'
 )!;
 
-controlsToggle.addEventListener('click', () => {
-  const expanded = controlsToggle.getAttribute('aria-expanded') === 'true';
-  controlsToggle.setAttribute('aria-expanded', String(!expanded));
+controlsShow.addEventListener('click', () => {
+  console.log('Showing controls');
+  controlsShow.setAttribute('aria-expanded', String(true));
+});
+controlsHide.addEventListener('click', () => {
+  console.log('Hiding controls');
+  controlsShow.setAttribute('aria-expanded', String(false));
 });
 
 /**
