@@ -54,8 +54,21 @@ body {
   color: var(--offwhite);
   background-color: black;
 }
+#controls #actions {
+  margin-top: 1.2rem;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+#controls button#share {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: white;
+}
 #controls #attribution {
-  margin-top: 1.4rem;
+  margin-top: 1.2rem;
   text-align: center;
 }
 #controls #attribution a {

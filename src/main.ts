@@ -1,6 +1,9 @@
 import './style.css';
 
-window.addEventListener('load', run);
+window.addEventListener('load', () => {
+  loadURLParams();
+  paint();
+});
 
 /**
  * Controls toggle
@@ -14,11 +17,9 @@ const controlsHide = document.querySelector<HTMLButtonElement>(
 )!;
 
 controlsShow.addEventListener('click', () => {
-  console.log('Showing controls');
   controlsShow.setAttribute('aria-expanded', String(true));
 });
 controlsHide.addEventListener('click', () => {
-  console.log('Hiding controls');
   controlsShow.setAttribute('aria-expanded', String(false));
 });
 
@@ -59,7 +60,7 @@ const colorInput = document.querySelector<HTMLInputElement>(
   angleInput,
   branchWidthInput,
   colorInput,
-].forEach((input) => input.addEventListener('input', run));
+].forEach((input) => input.addEventListener('input', paint));
 
 /**
  * Main logic
@@ -67,7 +68,7 @@ const colorInput = document.querySelector<HTMLInputElement>(
 
 const MAX_LEVELS = 5;
 
-function run(): void {
+function paint(): void {
   const canvas = document.querySelector<HTMLCanvasElement>('#canvas')!;
   const ctx = canvas.getContext('2d')!;
   canvas.width = window.innerWidth;
@@ -127,4 +128,63 @@ function run(): void {
   }
 
   drawFractal();
+}
+
+/**
+ * Sharing
+ */
+
+const shareButton = document.querySelector<HTMLButtonElement>('button#share')!;
+
+shareButton.addEventListener('click', copyConfigToClipboard);
+
+function loadURLParams() {
+  const params = new URLSearchParams(
+    decodeURIComponent(window.location.search)
+  );
+
+  const size = params.get('sz');
+  const branches = params.get('b');
+  const offshoots = params.get('o');
+  const levels = params.get('l');
+  const scale = params.get('sc');
+  const angle = params.get('a');
+  const branchWidth = params.get('bw');
+  const color = params.get('c');
+
+  if (size) sizeInput.value = size;
+  if (branches) branchesInput.value = branches;
+  if (offshoots) offshootsInput.value = offshoots;
+  if (levels) levelsInput.value = levels;
+  if (scale) scaleInput.value = scale;
+  if (angle) angleInput.value = angle;
+  if (branchWidth) branchWidthInput.value = branchWidth;
+  if (color) colorInput.value = color;
+}
+
+// Produces a URL like http://localhost:3000?sz%3D340%26b%3D5%26o%3D3%26l%3D3%26sc%3D0.5%26a%3D0.8%26bw%3D10%26c%3D%2523fa28d9
+function copyConfigToClipboard() {
+  const config = {
+    sz: sizeInput.value,
+    b: branchesInput.value,
+    o: offshootsInput.value,
+    l: levelsInput.value,
+    sc: scaleInput.value,
+    a: angleInput.value,
+    bw: branchWidthInput.value,
+    c: colorInput.value,
+  };
+  const params = new URLSearchParams(config);
+  const encoded = encodeURIComponent(params.toString());
+
+  const fullUrl = `${window.location.origin}?${encoded.toString()}`;
+
+  navigator.clipboard
+    .writeText(fullUrl)
+    .then(() => {
+      window.alert('Copied to clipboard!');
+    })
+    .catch(() => {
+      window.alert('Error: Could not copy to clipboard!');
+    });
 }
