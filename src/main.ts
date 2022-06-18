@@ -5,6 +5,8 @@ window.addEventListener('load', () => {
   paint();
 });
 
+const canvas = document.querySelector<HTMLCanvasElement>('#canvas')!;
+
 /**
  * Controls toggle
  */
@@ -69,7 +71,6 @@ const colorInput = document.querySelector<HTMLInputElement>(
 const MAX_LEVELS = 5;
 
 function paint(): void {
-  const canvas = document.querySelector<HTMLCanvasElement>('#canvas')!;
   const ctx = canvas.getContext('2d')!;
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
@@ -187,4 +188,25 @@ function copyConfigToClipboard() {
     .catch(() => {
       window.alert('Error: Could not copy to clipboard!');
     });
+}
+
+/**
+ * Sharing
+ */
+
+const downloadButton =
+  document.querySelector<HTMLButtonElement>('button#download')!;
+
+downloadButton.addEventListener('click', downloadAsPng);
+
+function downloadAsPng() {
+  const fileData = canvas
+    .toDataURL('image/png')
+    .replace('image/png', 'image/octet-stream');
+  const fileName = `fractals-${Date.now()}.png`;
+
+  const link = document.createElement('a');
+  link.setAttribute('href', fileData);
+  link.setAttribute('download', fileName);
+  link.click();
 }

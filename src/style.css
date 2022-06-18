@@ -59,12 +59,12 @@ body {
   width: 100%;
   display: flex;
   justify-content: center;
-  gap: 1rem;
+  gap: 1.5rem;
 }
-#controls button#share {
+#controls button {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.3rem;
   color: white;
 }
 #controls #attribution {
