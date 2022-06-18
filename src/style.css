@@ -1,5 +1,6 @@
 :root {
   --offwhite: #e2e8f0;
+  --controls-color: #3B82F6;
 }
 
 * {
@@ -53,7 +54,47 @@ body {
 
   color: var(--offwhite);
   background-color: black;
+  accent-color: var(--controls-color);
 }
+
+/* Custom toggle */
+#controls input[type=checkbox] {
+  height: 0;
+  width: 0;
+  visibility: hidden;
+}
+#controls input[type=checkbox] + span {
+  cursor: pointer;
+  text-indent: -9999px;
+  width: 8rem;
+  height: 25px;
+  background: grey;
+  display: block;
+  border-radius: 100px;
+  position: relative;
+}
+#controls input[type=checkbox] + span:after {
+  content: '';
+  position: absolute;
+  top: 2.5px;
+  left: 2.5px;
+  width: 20px;
+  height: 20px;
+  background: #fff;
+  border-radius: 90px;
+  transition: 0.3s;
+}
+#controls input[type=checkbox]:checked + span {
+  background: var(--controls-color);
+}
+#controls input[type=checkbox]:checked + span:after {
+  left: calc(100% - 5px);
+  transform: translateX(-100%);
+}
+#controls input[type=checkbox] + span:active:after {
+  width: 30px;
+}
+
 #controls #actions {
   margin-top: 1.2rem;
   width: 100%;

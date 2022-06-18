@@ -52,6 +52,9 @@ const branchWidthInput = document.querySelector<HTMLInputElement>(
 const colorInput = document.querySelector<HTMLInputElement>(
   'input[name="color"]'
 )!;
+const shadowsInput = document.querySelector<HTMLInputElement>(
+  'input[name="shadows"]'
+)!;
 
 [
   sizeInput,
@@ -62,6 +65,7 @@ const colorInput = document.querySelector<HTMLInputElement>(
   angleInput,
   branchWidthInput,
   colorInput,
+  shadowsInput,
 ].forEach((input) => input.addEventListener('input', paint));
 
 /**
@@ -86,6 +90,13 @@ function paint(): void {
   ctx.strokeStyle = colorInput.value ?? 'white';
   ctx.lineWidth = Number(branchWidthInput.value) ?? 0;
   ctx.lineCap = 'round';
+
+  if (shadowsInput.checked) {
+    ctx.shadowColor = 'rgba(0, 0, 0, 0.7)';
+    ctx.shadowOffsetX = 10;
+    ctx.shadowOffsetY = 5;
+    ctx.shadowBlur = 10;
+  }
 
   function drawBranch(level: number): void {
     if (level > Math.min(levels, MAX_LEVELS)) return;
@@ -152,6 +163,7 @@ function loadURLParams() {
   const angle = params.get('a');
   const branchWidth = params.get('bw');
   const color = params.get('c');
+  const shadows = params.get('sh');
 
   if (size) sizeInput.value = size;
   if (branches) branchesInput.value = branches;
@@ -161,6 +173,7 @@ function loadURLParams() {
   if (angle) angleInput.value = angle;
   if (branchWidth) branchWidthInput.value = branchWidth;
   if (color) colorInput.value = color;
+  if (shadows) shadowsInput.checked = Boolean(shadows);
 }
 
 // Produces a URL like http://localhost:3000?sz%3D340%26b%3D5%26o%3D3%26l%3D3%26sc%3D0.5%26a%3D0.8%26bw%3D10%26c%3D%2523fa28d9
@@ -174,6 +187,7 @@ function copyConfigToClipboard() {
     a: angleInput.value,
     bw: branchWidthInput.value,
     c: colorInput.value,
+    sh: String(shadowsInput.checked),
   };
   const params = new URLSearchParams(config);
   const encoded = encodeURIComponent(params.toString());
