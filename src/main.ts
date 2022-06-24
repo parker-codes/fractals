@@ -60,6 +60,8 @@ const shadowsInput = document.querySelector<HTMLInputElement>(
 const reflectInput = document.querySelector<HTMLInputElement>(
   'input[name="reflect"]'
 )!;
+const dotsInput =
+  document.querySelector<HTMLInputElement>('input[name="dots"]')!;
 
 [
   sizeInput,
@@ -72,6 +74,7 @@ const reflectInput = document.querySelector<HTMLInputElement>(
   colorInput,
   shadowsInput,
   reflectInput,
+  dotsInput,
 ].forEach((input) => input.addEventListener('input', paint));
 
 /**
@@ -93,8 +96,6 @@ function paint(): void {
   let scale = Number(scaleInput.value) ?? 0;
   let angle = Number(angleInput.value) ?? 0;
 
-  ctx.strokeStyle = colorInput.value ?? 'white';
-  ctx.lineWidth = Number(branchWidthInput.value) ?? 0;
   ctx.lineCap = 'round';
 
   if (shadowsInput.checked) {
@@ -133,10 +134,22 @@ function paint(): void {
 
       ctx.restore();
     }
+
+    if (dotsInput.checked) {
+      ctx.beginPath();
+      ctx.arc(0, size, size * 0.1, 0, Math.PI * 2);
+      ctx.fill();
+    }
   }
 
   function drawFractal(): void {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.save();
+
+    ctx.strokeStyle = colorInput.value ?? 'white';
+    ctx.fillStyle = colorInput.value ?? 'white';
+    ctx.lineWidth = Number(branchWidthInput.value) ?? 0;
+
     ctx.translate(canvas.width / 2, canvas.height / 2);
     ctx.scale(1, 1);
     ctx.rotate(0);
@@ -175,6 +188,7 @@ function loadURLParams() {
   const color = params.get('c');
   const shadows = params.get('sh');
   const reflect = params.get('r');
+  const dots = params.get('d');
 
   const hasNoControlParams = [
     size,
@@ -187,6 +201,7 @@ function loadURLParams() {
     color,
     shadows,
     reflect,
+    dots,
   ].every((s) => !s);
 
   if (size) sizeInput.value = size;
@@ -199,6 +214,7 @@ function loadURLParams() {
   if (color) colorInput.value = color;
   if (shadows) shadowsInput.checked = shadows === 'true';
   if (reflect) reflectInput.checked = reflect === 'true';
+  if (dots) dotsInput.checked = dots === 'true';
 
   if (hasNoControlParams) openControls();
 }
@@ -216,6 +232,7 @@ function copyConfigToClipboard() {
     c: colorInput.value,
     sh: String(shadowsInput.checked),
     r: String(reflectInput.checked),
+    d: String(dotsInput.checked),
   };
   const params = new URLSearchParams(config);
   const encoded = encodeURIComponent(params.toString());
