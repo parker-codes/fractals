@@ -107,20 +107,22 @@ function paint(): void {
     ctx.stroke();
 
     for (let i = 0; i < offshoots; i += 1) {
+      ctx.save();
+
       const translate = size - (size / offshoots) * i;
+      ctx.translate(translate, 0);
+      ctx.scale(scale, scale);
 
       ctx.save();
-      ctx.translate(translate, 0);
       ctx.rotate(angle);
-      ctx.scale(scale, scale);
       drawBranch(level + 1);
       ctx.restore();
 
       ctx.save();
-      ctx.translate(translate, 0);
       ctx.rotate(-angle);
-      ctx.scale(scale, scale);
       drawBranch(level + 1);
+      ctx.restore();
+
       ctx.restore();
     }
   }
