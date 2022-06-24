@@ -18,12 +18,14 @@ const controlsHide = document.querySelector<HTMLButtonElement>(
   'button#controls-hide'
 )!;
 
-controlsShow.addEventListener('click', () => {
+function openControls(): void {
   controlsShow.setAttribute('aria-expanded', String(true));
-});
-controlsHide.addEventListener('click', () => {
+}
+controlsShow.addEventListener('click', openControls);
+function closeControls(): void {
   controlsShow.setAttribute('aria-expanded', String(false));
-});
+}
+controlsHide.addEventListener('click', closeControls);
 
 /**
  * Controls inputs
@@ -174,6 +176,19 @@ function loadURLParams() {
   const shadows = params.get('sh');
   const reflect = params.get('r');
 
+  const hasNoControlParams = [
+    size,
+    branches,
+    offshoots,
+    levels,
+    scale,
+    angle,
+    branchWidth,
+    color,
+    shadows,
+    reflect,
+  ].every((s) => !s);
+
   if (size) sizeInput.value = size;
   if (branches) branchesInput.value = branches;
   if (offshoots) offshootsInput.value = offshoots;
@@ -184,6 +199,8 @@ function loadURLParams() {
   if (color) colorInput.value = color;
   if (shadows) shadowsInput.checked = shadows === 'true';
   if (reflect) reflectInput.checked = reflect === 'true';
+
+  if (hasNoControlParams) openControls();
 }
 
 // Produces a URL like http://localhost:3000?sz%3D340%26b%3D5%26o%3D3%26l%3D3%26sc%3D0.5%26a%3D0.8%26bw%3D10%26c%3D%2523fa28d9
