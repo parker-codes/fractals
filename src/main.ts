@@ -55,6 +55,9 @@ const colorInput = document.querySelector<HTMLInputElement>(
 const shadowsInput = document.querySelector<HTMLInputElement>(
   'input[name="shadows"]'
 )!;
+const reflectInput = document.querySelector<HTMLInputElement>(
+  'input[name="reflect"]'
+)!;
 
 [
   sizeInput,
@@ -66,6 +69,7 @@ const shadowsInput = document.querySelector<HTMLInputElement>(
   branchWidthInput,
   colorInput,
   shadowsInput,
+  reflectInput,
 ].forEach((input) => input.addEventListener('input', paint));
 
 /**
@@ -118,10 +122,12 @@ function paint(): void {
       drawBranch(level + 1);
       ctx.restore();
 
-      ctx.save();
-      ctx.rotate(-angle);
-      drawBranch(level + 1);
-      ctx.restore();
+      if (reflectInput.checked) {
+        ctx.save();
+        ctx.rotate(-angle);
+        drawBranch(level + 1);
+        ctx.restore();
+      }
 
       ctx.restore();
     }
@@ -166,6 +172,7 @@ function loadURLParams() {
   const branchWidth = params.get('bw');
   const color = params.get('c');
   const shadows = params.get('sh');
+  const reflect = params.get('r');
 
   if (size) sizeInput.value = size;
   if (branches) branchesInput.value = branches;
@@ -176,6 +183,7 @@ function loadURLParams() {
   if (branchWidth) branchWidthInput.value = branchWidth;
   if (color) colorInput.value = color;
   if (shadows) shadowsInput.checked = shadows === 'true';
+  if (reflect) reflectInput.checked = reflect === 'true';
 }
 
 // Produces a URL like http://localhost:3000?sz%3D340%26b%3D5%26o%3D3%26l%3D3%26sc%3D0.5%26a%3D0.8%26bw%3D10%26c%3D%2523fa28d9
@@ -190,6 +198,7 @@ function copyConfigToClipboard() {
     bw: branchWidthInput.value,
     c: colorInput.value,
     sh: String(shadowsInput.checked),
+    r: String(reflectInput.checked),
   };
   const params = new URLSearchParams(config);
   const encoded = encodeURIComponent(params.toString());
