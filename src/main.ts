@@ -175,7 +175,7 @@ function loadURLParams() {
   if (angle) angleInput.value = angle;
   if (branchWidth) branchWidthInput.value = branchWidth;
   if (color) colorInput.value = color;
-  if (shadows) shadowsInput.checked = Boolean(shadows);
+  if (shadows) shadowsInput.checked = shadows === 'true';
 }
 
 // Produces a URL like http://localhost:3000?sz%3D340%26b%3D5%26o%3D3%26l%3D3%26sc%3D0.5%26a%3D0.8%26bw%3D10%26c%3D%2523fa28d9
