@@ -11,4 +11,4 @@ Inspired by [this video](https://youtu.be/dQKYao-daYw) by Frank's Laboratory.
 <img src="readme-assets/green-hex.png" width="100%" alt="green hex" />
 <img src="readme-assets/red-barbs.png" width="100%" alt="red barbs" />
 <img src="readme-assets/gold-feathers.png" width="100%" alt="gold feathers" />
-<img src="readme-assets/pink-non-reflect.png" width="100%" alt="pink non-reflect" />
+<img src="readme-assets/pink-non-reflect-dots.png" width="100%" alt="pink non-reflect with dots" />
