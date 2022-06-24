@@ -4,7 +4,7 @@ Playground for fractals using web canvas. Reactive controls included.
 
 ---
 
-Inspired by [this video](https://youtu.be/dQKYao-daYw) by Frank's Laboratory.
+Inspired by [this HIGH QUALITY tutorial](https://youtu.be/dQKYao-daYw) by Frank's Laboratory.
 
 
 <img src="readme-assets/purple-branches.png" width="100%" alt="purple branches" />
