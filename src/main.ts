@@ -77,6 +77,9 @@ const dotsInput =
   dotsInput,
 ].forEach((input) => input.addEventListener('input', paint));
 
+// handle window resizing
+window.addEventListener('resize', paint);
+
 /**
  * Main logic
  */
